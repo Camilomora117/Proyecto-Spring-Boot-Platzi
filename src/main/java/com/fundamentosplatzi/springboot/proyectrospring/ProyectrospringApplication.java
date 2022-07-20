@@ -66,13 +66,22 @@ public class ProyectrospringApplication implements CommandLineRunner {
 
 		userRepository.findByAndSort("user", Sort.by("id").descending())
 				.stream().forEach(user -> LOGGER.info("El usuario encontrado es : " + user.getName()));
+
+		//Encontrar Users por nombre
+		userRepository.findByName("Marco")
+				.stream().forEach(user -> LOGGER.info("User con Query method (findByName) : " + user ));
+
+		//Encontrar Usuario con nombre and email
+		LOGGER.info(" User con Query method findByNameAndEmail : " + userRepository.findByNameAndEmail("John","john@domain.com")
+				.orElseThrow(() -> new RuntimeException("No se encontro el Usuario")));
+
 	}
 
 	public void SaveUserInDataBase() {
 		//Creamos Usuarios que queremos agregar a la DataBase
 		User user1 = new User("John", "john@domain.com", LocalDate.of(2021, 3, 13));
 		User user2 = new User("Marco", "marco@domain.com", LocalDate.of(2021, 12, 8));
-		User user3 = new User("Daniela", "daniela@domain.com", LocalDate.of(2021, 9, 8));
+		User user3 = new User("Marco", "daniela@domain.com", LocalDate.of(2021, 9, 8));
 		User user4 = new User("Marisol", "marisol@domain.com", LocalDate.of(2021, 6, 18));
 		User user5 = new User("Karen", "karen@domain.com", LocalDate.of(2021, 1, 1));
 		User user6 = new User("user6", "user6@domain.com", LocalDate.of(2021, 1, 1));

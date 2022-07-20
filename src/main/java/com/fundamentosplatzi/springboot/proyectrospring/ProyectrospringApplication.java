@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.domain.Sort;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -56,6 +57,15 @@ public class ProyectrospringApplication implements CommandLineRunner {
 	public void run(String... args) {
 		//ejemplosAnteriores();
 		SaveUserInDataBase();
+		getInformationAndUser();
+	}
+
+	public void getInformationAndUser() {
+		LOGGER.info("Usuario con el Metodo findByUserEmail : " +
+				userRepository.findMyUserByEmail("john@domain.com").orElseThrow( () -> new RuntimeException("No se encontro el user")));
+
+		userRepository.findByAndSort("user", Sort.by("id").descending())
+				.stream().forEach(user -> LOGGER.info("El usuario encontrado es : " + user.getName()));
 	}
 
 	public void SaveUserInDataBase() {
@@ -65,8 +75,11 @@ public class ProyectrospringApplication implements CommandLineRunner {
 		User user3 = new User("Daniela", "daniela@domain.com", LocalDate.of(2021, 9, 8));
 		User user4 = new User("Marisol", "marisol@domain.com", LocalDate.of(2021, 6, 18));
 		User user5 = new User("Karen", "karen@domain.com", LocalDate.of(2021, 1, 1));
+		User user6 = new User("user6", "user6@domain.com", LocalDate.of(2021, 1, 1));
+		User user7 = new User("user7", "user7@domain.com", LocalDate.of(2021, 1, 1));
+		User user8 = new User("user8", "user8@domain.com", LocalDate.of(2021, 1, 1));
 		//Añadimos a una lista
-		List<User> list = Arrays.asList(user1,user2,user3,user4,user5);
+		List<User> list = Arrays.asList(user1,user2,user3,user4,user5, user6, user7, user8);
 		//Añadimos a persistencia
 		list.stream().forEach(userRepository::save);
 	}

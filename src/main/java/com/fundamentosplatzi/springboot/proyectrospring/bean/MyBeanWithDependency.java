@@ -1,2 +1,7 @@
-package com.fundamentosplatzi.springboot.proyectrospring.bean;public interface MyBeanWithDependency {
+package com.fundamentosplatzi.springboot.proyectrospring.bean;
+
+public interface MyBeanWithDependency {
+
+    void printWithDependency();
+
 }

@@ -94,8 +94,10 @@ public class ProyectrospringApplication implements CommandLineRunner {
 
 		// Ordenar descendientemente por Id dado el nombre sin LIKE
 		userRepository.findByNameContainingOrderByIdDesc("user").stream().forEach(user -> LOGGER.info("Ordenar descendiente sin LIKE : " + user ));
-
 		 */
+		//
+		LOGGER.info("Usuario con etiquetas parameter : " + userRepository.getAllByBirthDateAndEmail(LocalDate.of(2021, 3, 13),"john@domain.com")
+				.orElseThrow(() -> new RuntimeException("No se encontro el Usuario")));
 	}
 
 	public void SaveUserInDataBase() {

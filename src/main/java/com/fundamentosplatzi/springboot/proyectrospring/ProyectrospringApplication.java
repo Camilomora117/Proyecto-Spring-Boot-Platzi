@@ -61,6 +61,7 @@ public class ProyectrospringApplication implements CommandLineRunner {
 	}
 
 	public void getInformationAndUser() {
+		/*
 		LOGGER.info("Usuario con el Metodo findByUserEmail : " +
 				userRepository.findMyUserByEmail("john@domain.com").orElseThrow( () -> new RuntimeException("No se encontro el user")));
 
@@ -75,6 +76,26 @@ public class ProyectrospringApplication implements CommandLineRunner {
 		LOGGER.info(" User con Query method findByNameAndEmail : " + userRepository.findByNameAndEmail("John","john@domain.com")
 				.orElseThrow(() -> new RuntimeException("No se encontro el Usuario")));
 
+		//Encontrar lista de usuarios con LIKE
+		userRepository.findByNameLike("%user%").stream().forEach(user -> LOGGER.info("Usuario con LIKE : " + user));
+
+		//Encontrar lista de usuarios con OR (name or email)
+		userRepository.findByNameOrEmail("Marco", null).stream().forEach(user -> LOGGER.info("Usuario con OR : " + user));
+
+		//Encontrar user en un rango de fechas
+		userRepository.findByBirthDateBetween(LocalDate.of(2021, 1, 1), LocalDate.of(2021,4, 2))
+				.stream().forEach(user -> LOGGER.info("Usuarios en el rango de Fechas : " + user));
+
+		// Ordenar descendientemente por Id dado el nombre LIKE
+		userRepository.findByNameLikeOrderByIdDesc("%user%").stream().forEach(user -> LOGGER.info("Ordenar descendiente : " + user ));
+
+		// Ordenar ascendente por Id dado el nombre LIKE
+		userRepository.findByNameLikeOrderByIdAsc("%user%").stream().forEach(user -> LOGGER.info("Ordenar ascendente : " + user ));
+
+		// Ordenar descendientemente por Id dado el nombre sin LIKE
+		userRepository.findByNameContainingOrderByIdDesc("user").stream().forEach(user -> LOGGER.info("Ordenar descendiente sin LIKE : " + user ));
+
+		 */
 	}
 
 	public void SaveUserInDataBase() {

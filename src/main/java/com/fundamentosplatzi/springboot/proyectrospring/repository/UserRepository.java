@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,5 +23,17 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByName(String name);
 
     Optional<User> findByNameAndEmail(String name, String email);
+
+    List<User> findByNameLike(String name);
+
+    List<User> findByNameOrEmail(String name, String email);
+
+    List<User> findByBirthDateBetween(LocalDate begin, LocalDate end);
+
+    List<User> findByNameLikeOrderByIdDesc(String name);
+
+    List<User> findByNameLikeOrderByIdAsc(String name);
+
+    List<User> findByNameContainingOrderByIdDesc(String name);
 
 }

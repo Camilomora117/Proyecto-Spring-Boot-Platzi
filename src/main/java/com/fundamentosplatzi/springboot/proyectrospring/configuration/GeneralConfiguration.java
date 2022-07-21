@@ -1,9 +1,8 @@
 package com.fundamentosplatzi.springboot.proyectrospring.configuration;
 
-import com.fundamentosplatzi.springboot.proyectrospring.bean.MyBeanWithDependency;
 import com.fundamentosplatzi.springboot.proyectrospring.bean.MyBeanWithProperties;
 import com.fundamentosplatzi.springboot.proyectrospring.bean.MyBeanWithPropertiesImplement;
-import com.fundamentosplatzi.springboot.proyectrospring.pojo.UserPojo;
+import com.fundamentosplatzi.springboot.proyectrospring.entity.pojo.UserPojo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;

@@ -1,12 +1,11 @@
 package com.fundamentosplatzi.springboot.proyectrospring;
 
 import com.fundamentosplatzi.springboot.proyectrospring.bean.MyBean;
-import com.fundamentosplatzi.springboot.proyectrospring.bean.MyBeanImplement;
 import com.fundamentosplatzi.springboot.proyectrospring.bean.MyBeanWithDependency;
 import com.fundamentosplatzi.springboot.proyectrospring.bean.MyBeanWithProperties;
 import com.fundamentosplatzi.springboot.proyectrospring.component.ComponentDependency;
 import com.fundamentosplatzi.springboot.proyectrospring.entity.User;
-import com.fundamentosplatzi.springboot.proyectrospring.pojo.UserPojo;
+import com.fundamentosplatzi.springboot.proyectrospring.entity.pojo.UserPojo;
 import com.fundamentosplatzi.springboot.proyectrospring.repository.UserRepository;
 import com.fundamentosplatzi.springboot.proyectrospring.service.UserService;
 import org.apache.juli.logging.Log;
@@ -15,7 +14,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.domain.Sort;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -62,13 +60,13 @@ public class ProyectrospringApplication implements CommandLineRunner {
 		//ejemplosAnteriores();
 		SaveUserInDataBase();
 		getInformationAndUser();
-		saveWithErrorTransactional();
+		//saveWithErrorTransactional();
 	}
 
 	private void saveWithErrorTransactional() {
 		User test1 = new User("TestTransactional1", "TestTransactional1@domain.com", LocalDate.now());
 		User test2 = new User("TestTransactional2", "TestTransactional2@domain.com", LocalDate.now());
-		User test3 = new User("TestTransactional3", "TestTransactional1@domain.com", LocalDate.now());
+		User test3 = new User("TestTransactional3", "TestTransactional3@domain.com", LocalDate.now());
 		User test4 = new User("TestTransactional4", "TestTransactional4@domain.com", LocalDate.now());
 
 		List<User> list = Arrays.asList(test1, test2, test3, test4);

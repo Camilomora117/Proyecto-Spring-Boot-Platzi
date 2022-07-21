@@ -1,5 +1,6 @@
 package com.fundamentosplatzi.springboot.proyectrospring.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -16,18 +17,19 @@ public class User {
     @Column(name = "id_user", nullable = false, unique = true)
     private long id;
 
-    @Column(name = "name", length = 50)
+    @Column(length = 50)
     private String name;
 
-    @Column(name = "email", length = 50, unique = true)
+    @Column(length = 50, nullable = false, unique = true)
     private String email;
 
     @Column(name = "birth_date")
     private LocalDate birthDate;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonManagedReference
+    @JsonIgnore
     List<Post> posts = new ArrayList<>();
+
 
     public User() {}
 
@@ -65,11 +67,11 @@ public class User {
         this.email = email;
     }
 
-    public LocalDate getBirthDay() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDay(LocalDate birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
@@ -87,8 +89,7 @@ public class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", birthDay=" + birthDate +
-                ", posts=" + posts +
+                ", birthDate=" + birthDate +
                 '}';
     }
 }

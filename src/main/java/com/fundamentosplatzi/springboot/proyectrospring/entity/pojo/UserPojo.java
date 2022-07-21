@@ -1,4 +1,4 @@
-package com.fundamentosplatzi.springboot.proyectrospring.pojo;
+package com.fundamentosplatzi.springboot.proyectrospring.entity.pojo;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;

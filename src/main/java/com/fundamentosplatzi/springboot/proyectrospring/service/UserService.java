@@ -45,7 +45,7 @@ public class UserService {
                         user -> {
                             user.setName(newUse.getName());
                             user.setEmail(newUse.getEmail());
-                            user.setBirthDay(newUse.getBirthDay());
+                            user.setBirthDate(newUse.getBirthDate());
                             return userRepository.save(user);
                         }
                 ).get();

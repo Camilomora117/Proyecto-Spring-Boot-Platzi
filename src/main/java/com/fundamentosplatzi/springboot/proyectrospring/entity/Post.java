@@ -3,41 +3,45 @@ package com.fundamentosplatzi.springboot.proyectrospring.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name="post")
+@Table(name = "post")
 public class Post {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //identity para que no se siga el contador de otros registros
     @Column(name = "id_post", nullable = false, unique = true)
-    private int id;
-
-    @Column(name = "descripcion", length = 255)
-    private String descripcion;
+    private Long id;
+    @Column(name = "description", length = 250)
+    private String description;
 
     @ManyToOne
+    @JoinColumn(name = "user_id") //No necesario para el ejemplo del curso pero se puede explicar
     private User user;
 
-    public Post() {};
+    public Post() {
+    }
 
-    public Post(String descripcion, User user) {
-        this.descripcion = descripcion;
+    public Post(String description, User user) {
+        this.description = description;
         this.user = user;
     }
 
-    public int getId() {
+    public Post(String description) {
+        this.description = description;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public User getUser() {
@@ -50,10 +54,9 @@ public class Post {
 
     @Override
     public String toString() {
-        return "Post{" +
+        return "Posts{" +
                 "id=" + id +
-                ", descripcion='" + descripcion + '\'' +
-                ", user=" + user +
+                ", description='" + description + '\'' +
                 '}';
     }
 }

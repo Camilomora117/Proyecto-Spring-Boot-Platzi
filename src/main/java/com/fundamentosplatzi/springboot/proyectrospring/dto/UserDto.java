@@ -45,7 +45,7 @@ public class UserDto {
         return "UserDto{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", birthDay=" + birthDate +
+                ", birthDate=" + birthDate +
                 '}';
     }
 }

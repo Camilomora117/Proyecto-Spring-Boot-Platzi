@@ -60,7 +60,7 @@ public class ProyectrospringApplication implements CommandLineRunner {
 		//ejemplosAnteriores();
 		SaveUserInDataBase();
 		getInformationAndUser();
-		//saveWithErrorTransactional();
+		saveWithErrorTransactional();
 	}
 
 	private void saveWithErrorTransactional() {

@@ -8,6 +8,7 @@ import com.fundamentosplatzi.springboot.proyectrospring.component.ComponentDepen
 import com.fundamentosplatzi.springboot.proyectrospring.entity.User;
 import com.fundamentosplatzi.springboot.proyectrospring.pojo.UserPojo;
 import com.fundamentosplatzi.springboot.proyectrospring.repository.UserRepository;
+import com.fundamentosplatzi.springboot.proyectrospring.service.UserService;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -38,15 +39,18 @@ public class ProyectrospringApplication implements CommandLineRunner {
 
 	private UserRepository userRepository;
 
+	private UserService userService;
+
 	public ProyectrospringApplication(@Qualifier("componentTwoImplement") ComponentDependency componentDependency, MyBean myBean,
 									  MyBeanWithDependency myBeanWithDependency, MyBeanWithProperties myBeanWithProperties,
-									  UserPojo userPojo, UserRepository userRepository) {
+									  UserPojo userPojo, UserRepository userRepository, UserService userService) {
 		this.componentDependency = componentDependency;
 		this.myBean = myBean;
 		this.myBeanWithDependency = myBeanWithDependency;
 		this.myBeanWithProperties = myBeanWithProperties;
 		this.userPojo = userPojo;
 		this.userRepository = userRepository;
+		this.userService = userService;
 	}
 
 	public static void main(String[] args) {
@@ -58,8 +62,19 @@ public class ProyectrospringApplication implements CommandLineRunner {
 		//ejemplosAnteriores();
 		SaveUserInDataBase();
 		getInformationAndUser();
+		saveWithErrorTransactional();
 	}
 
+	private void saveWithErrorTransactional() {
+		User test1 = new User("TestTransactional1", "TestTransactional1@domain.com", LocalDate.now());
+		User test2 = new User("TestTransactional2", "TestTransactional2@domain.com", LocalDate.now());
+		User test3 = new User("TestTransactional3", "TestTransactional3@domain.com", LocalDate.now());
+		User test4 = new User("TestTransactional4", "TestTransactional4@domain.com", LocalDate.now());
+
+		List<User> list = Arrays.asList(test1, test2, test3, test4);
+		userService.SaveTransactional(list);
+		userService.getAllUsers().stream().forEach(user -> LOGGER.info("Usuarios almacenados : " + user));
+	}
 	public void getInformationAndUser() {
 		/*
 		LOGGER.info("Usuario con el Metodo findByUserEmail : " +

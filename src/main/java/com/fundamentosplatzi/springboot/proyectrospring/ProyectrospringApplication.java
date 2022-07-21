@@ -68,11 +68,15 @@ public class ProyectrospringApplication implements CommandLineRunner {
 	private void saveWithErrorTransactional() {
 		User test1 = new User("TestTransactional1", "TestTransactional1@domain.com", LocalDate.now());
 		User test2 = new User("TestTransactional2", "TestTransactional2@domain.com", LocalDate.now());
-		User test3 = new User("TestTransactional3", "TestTransactional3@domain.com", LocalDate.now());
+		User test3 = new User("TestTransactional3", "TestTransactional1@domain.com", LocalDate.now());
 		User test4 = new User("TestTransactional4", "TestTransactional4@domain.com", LocalDate.now());
 
 		List<User> list = Arrays.asList(test1, test2, test3, test4);
-		userService.SaveTransactional(list);
+		try {
+			userService.SaveTransactional(list);
+		}catch (Exception e) {
+			LOGGER.error("Ocurrio un error en la transaccion " + e);
+		}
 		userService.getAllUsers().stream().forEach(user -> LOGGER.info("Usuarios almacenados : " + user));
 	}
 	public void getInformationAndUser() {
@@ -109,10 +113,12 @@ public class ProyectrospringApplication implements CommandLineRunner {
 
 		// Ordenar descendientemente por Id dado el nombre sin LIKE
 		userRepository.findByNameContainingOrderByIdDesc("user").stream().forEach(user -> LOGGER.info("Ordenar descendiente sin LIKE : " + user ));
-		 */
+
 		//
 		LOGGER.info("Usuario con etiquetas parameter : " + userRepository.getAllByBirthDateAndEmail(LocalDate.of(2021, 3, 13),"john@domain.com")
 				.orElseThrow(() -> new RuntimeException("No se encontro el Usuario")));
+
+		 */
 	}
 
 	public void SaveUserInDataBase() {

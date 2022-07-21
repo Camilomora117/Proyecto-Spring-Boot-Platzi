@@ -5,6 +5,7 @@ import com.fundamentosplatzi.springboot.proyectrospring.entity.User;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends PagingAndSortingRepository<User, Long> {
 
     @Query("SELECT u FROM User u WHERE u.email=?1")
     Optional<User> findMyUserByEmail(String email);
@@ -42,5 +43,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
             " From User u " +
             " Where u.birthDate=:parametroFecha AND u.email=:parametroEmail")
     Optional<UserDto> getAllByBirthDateAndEmail(@Param("parametroFecha") LocalDate date, @Param("parametroEmail") String email);
+
+    List<User> findAll();
 
 }

@@ -5,6 +5,8 @@ import com.fundamentosplatzi.springboot.proyectrospring.caseuse.DeleteUser;
 import com.fundamentosplatzi.springboot.proyectrospring.caseuse.GetUser;
 import com.fundamentosplatzi.springboot.proyectrospring.caseuse.UpdateUser;
 import com.fundamentosplatzi.springboot.proyectrospring.entity.User;
+import com.fundamentosplatzi.springboot.proyectrospring.repository.UserRepository;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,11 +25,14 @@ public class UserRestController {
 
     private UpdateUser updateUser;
 
-    public UserRestController(GetUser getUser, CreateUser createUser, DeleteUser deleteUser, UpdateUser updateUser) {
+    private UserRepository userRepository;
+
+    public UserRestController(GetUser getUser, CreateUser createUser, DeleteUser deleteUser, UpdateUser updateUser, UserRepository userRepository) {
         this.getUser = getUser;
         this.createUser = createUser;
         this.deleteUser = deleteUser;
         this.updateUser = updateUser;
+        this.userRepository = userRepository;
     }
 
     //Get
@@ -53,6 +58,12 @@ public class UserRestController {
     @PutMapping("/{id}")
     ResponseEntity<User> replaceUser(@RequestBody User newUse, @PathVariable Long id ){
         return new ResponseEntity<> (updateUser.update(newUse, id), HttpStatus.OK);
+    }
+
+    //Pagination
+    @GetMapping("/pageable")
+    List<User> getUserPageable(@RequestParam int page, @RequestParam int size) {
+        return userRepository.findAll(PageRequest.of(page, size)).getContent();
     }
 
 }
